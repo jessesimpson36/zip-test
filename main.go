@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/jessesimpson36/zip-test/internal/archive"
 	"fmt"
+	"github.com/jessesimpson36/zip-test/internal/archive"
 	"runtime/debug"
 )
 

@@ -73,13 +73,16 @@ func CreateTarGzArchive(files []string, buf io.Writer) error {
 				return fmt.Errorf("CreateTarGzArchive: failed to open file %s\n%w\n%s", path, err, debug.Stack())
 			}
 			if !info.IsDir() {
+				fmt.Println("addToArchive: " + path)
 				return addToArchive(tw, path)
 			} else {
+				fmt.Println("path: " + path)
 				header, err := tar.FileInfoHeader(info, path)
 				if err != nil {
 					return fmt.Errorf("CreateTarGzArchive: failed to get file info for %s\n%w\n%s", path, err, debug.Stack())
 				}
 				header.Name = path + "/"
+				fmt.Println("header.Name: " + header.Name)
 				if err := tw.WriteHeader(header); err != nil {
 					return fmt.Errorf("CreateTarGzArchive: failed to write file header for %s\n%w\n%s", path, err, debug.Stack())
 				}
@@ -226,11 +229,13 @@ func ZipSource(sources []string, target string) error {
 			header.Method = zip.Deflate
 
 			header.Name, err = filepath.Rel(filepath.Dir(source), path)
+			fmt.Println("header.Name: " + header.Name)
 			if err != nil {
 				return fmt.Errorf("ZipSource: failed to determine relative path for %s\n%w\n%s", path, err, debug.Stack())
 			}
 			if info.IsDir() {
 				header.Name += "/"
+				fmt.Println("IsDir(): header.Name: " + header.Name)
 			}
 
 			headerWriter, err := writer.CreateHeader(header)
