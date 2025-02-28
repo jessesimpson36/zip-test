@@ -44,10 +44,11 @@ jobs:
 
       - name: extract
         run: |
+          set -x
           mkdir extractiontest
           cp test.zip extractiontest
           cd extractiontest
-          unzip test.zip
+          7z x test.zip
           ls
           ls test
         shell: bash
