@@ -51,4 +51,5 @@ jobs:
           7z x test.zip
           ls
           ls test
+          cat test/nested/test.txt
         shell: bash
