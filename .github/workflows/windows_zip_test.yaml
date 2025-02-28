@@ -1,0 +1,54 @@
+name: "Zip test"
+
+on:
+  push:
+
+permissions:
+  actions: write
+  attestations: none
+  checks: write
+  contents: read
+  deployments: none
+  id-token: none
+  issues: none
+  discussions: none
+  packages: none
+  pages: none
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: write
+
+jobs:
+  test_zip_windows:
+    name: C8Run Test Windows
+    runs-on: windows-latest
+    timeout-minutes: 15
+    needs: camunda-dist-build
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '>=1.23.1'
+          cache: false  # disabling since not working anyways without a cache-dependency-path specified
+
+      - name: Build c8run
+        run: go build
+
+      - name: ls
+        run: ls
+
+      - name: Unit tests
+        run: ./zip-test.exe
+        shell: bash
+
+      - name: extract
+        run: |
+          mkdir extractiontest
+          cp test.zip extractiontest
+          cd extractiontest
+          unzip test.zip
+          ls
+          ls test
+        shell: bash
