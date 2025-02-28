@@ -24,7 +24,6 @@ jobs:
     name: C8Run Test Windows
     runs-on: windows-latest
     timeout-minutes: 15
-    needs: camunda-dist-build
     steps:
       - uses: actions/checkout@v4
 
