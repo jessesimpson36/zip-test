@@ -48,7 +48,7 @@ jobs:
           mkdir extractiontest
           cp test.zip extractiontest
           cd extractiontest
-          7z x test.zip
+          unzip test.zip
           ls
           ls test
           cat test/nested/test.txt
