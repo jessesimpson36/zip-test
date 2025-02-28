@@ -234,6 +234,7 @@ func ZipSource(sources []string, target string) error {
 				return fmt.Errorf("ZipSource: failed to determine relative path for %s\n%w\n%s", path, err, debug.Stack())
 			}
 			if info.IsDir() {
+				strings.ReplaceAll(header.Name, "\\", "/")
 				header.Name += "/"
 				fmt.Println("IsDir(): header.Name: " + header.Name)
 			}
